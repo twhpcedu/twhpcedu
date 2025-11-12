@@ -1,6 +1,9 @@
 # 臺灣高效能運算教育協會 Taiwan HPC Education Association
 
 臺灣高效能運算教育協會官方網站，致力於培育具備理論與實務能力的 HPC 與 IC 設計人才，連結學界與產業需求。
+# Taiwan High Performance Computing Education Association
+Official website of Taiwan HPC Education Association  
+Originally created by [catcatcatcat](https://github.com/catcatcatcat), now maintained by the Taiwan HPC Education Association.
 
 ## 網站架構圖 (Site Architecture)
 
