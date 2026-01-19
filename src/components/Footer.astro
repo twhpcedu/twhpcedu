@@ -1,5 +1,6 @@
 ---
 // Footer component with real contact information
+const currentYear = new Date().getFullYear();
 ---
 
 <footer class="bg-secondary-500 text-white">
@@ -79,7 +80,7 @@
     <div class="mt-8 pt-8">
       <div class="flex flex-col md:flex-row justify-between items-center">
         <div class="text-secondary-100 text-sm mb-4 md:mb-0">
-          2025 臺灣高效能運算教育協會. All rights reserved.
+          {currentYear} 臺灣高效能運算教育協會. All rights reserved.
         </div>
         <div class="flex space-x-6 text-sm hidden">
           <a href="/privacy-policy" class="text-secondary-100 hover:text-white transition-colors">隱私權政策</a>
