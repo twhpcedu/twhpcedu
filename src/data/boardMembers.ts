@@ -62,9 +62,12 @@ export const boardMembers: BoardMember[] = [
     name: '郭致宏',
     currentTitle: '國立成功大學電機工程學系｜副教授',
     expertise: ['神經網路', '深度學習演算法'],
-    photoSrc: '',
-    bio: [],
-    education: '',
+    photoSrc: '/images/理監事介紹_郭致宏.jpg',
+    bio: [
+      '專注於高效能運算、系統軟體與計算架構相關研究，長期投入平行計算與先進運算技術之學術發展。',
+      '積極參與跨校與產學合作，推動高效能運算教育與研究能量的整合，致力於培育具備紮實基礎與國際視野之高階資訊人才。',
+      ],
+    education: '美國南加州大學電機工程博士',
   },
   {
     id: 'xu-zhi-zhong',
