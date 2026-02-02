@@ -1,0 +1,199 @@
+---
+import type { BoardMember } from '../data/boardMembers';
+
+export type Props = {
+  members: BoardMember[];
+};
+
+const { members } = Astro.props;
+const hasDetails = (member: BoardMember) => Array.isArray(member.bio) && member.bio.length > 0;
+const membersWithDetails = members.filter((member) => hasDetails(member));
+---
+<div data-board-members-table class="space-y-8">
+  <div class="bg-brand-surface rounded-xl shadow-lg overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="w-full">
+        <thead class="bg-brand-accent text-white">
+          <tr>
+            <th class="px-6 py-4 text-left font-semibold">職位</th>
+            <th class="px-6 py-4 text-left font-semibold">姓名</th>
+            <th class="px-6 py-4 text-left font-semibold">現職</th>
+            <th class="px-6 py-4 text-left font-semibold">專長領域</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-brand-border">
+          {members.map((member) => {
+            const canExpand = hasDetails(member);
+            return (
+              <tr data-member-row={member.id} data-member-id={member.id} class="hover:bg-brand-light transition-colors">
+                <td class="px-6 py-4 font-semibold text-brand-primary">{member.role}</td>
+                <td class="px-6 py-4">
+                  {canExpand ? (
+                    <button
+                      type="button"
+                      class="text-brand-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent rounded"
+                      data-action="toggle"
+                      data-member-id={member.id}
+                      aria-expanded="false"
+                    >
+                      {member.name}
+                    </button>
+                  ) : (
+                    <span class="text-brand-secondary">{member.name}</span>
+                  )}
+                </td>
+                <td class="px-6 py-4 text-brand-secondary">{member.currentTitle}</td>
+                <td class="px-6 py-4 text-brand-secondary">{member.expertise.join('、')}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+      <script type="application/json" data-board-members set:html={JSON.stringify(members)}></script>
+    </div>
+  </div>
+
+  <div aria-live="polite"></div>
+</div>
+
+<script is:inline type="module">
+  const highlightClasses = ['bg-brand-light', 'ring-1', 'ring-brand-border'];
+
+  const createDetailRow = (member) => {
+    const row = document.createElement('tr');
+    row.setAttribute('data-detail-row', '');
+    row.setAttribute('data-for', member.id);
+
+    const cell = document.createElement('td');
+    cell.colSpan = 4;
+    cell.className = 'px-6 py-6 bg-brand-surface';
+    cell.innerHTML = `
+      <div class="bg-brand-surface rounded-2xl shadow-lg border border-brand-border p-6">
+        <div class="flex flex-col gap-6 md:flex-row md:items-start">
+          <div class="flex-1 space-y-4">
+            <div>
+              <h3 class="text-2xl font-bold text-brand-primary mb-2">${member.name}｜${member.role}</h3>
+              <p class="text-brand-secondary font-medium">${member.currentTitle}</p>
+            </div>
+            <div class="space-y-3 text-brand-secondary leading-relaxed">
+              <div>
+                <p class="font-semibold text-brand-primary">簡介</p>
+                <div class="space-y-2 mt-1">
+                  ${member.bio.map((paragraph) => `<p>${paragraph}</p>`).join('')}
+                </div>
+              </div>
+              <p>
+                <span class="font-semibold text-brand-primary">最高學歷：</span>
+                ${member.education && member.education.trim() ? member.education : '資料更新中'}
+              </p>
+            </div>
+          </div>
+          <div class="w-full md:w-48 flex-shrink-0">
+            <img
+              src="${member.photoSrc}"
+              alt="${member.name}的人像照片"
+              class="w-full h-56 object-cover rounded-xl border border-brand-border"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+    `;
+
+    row.appendChild(cell);
+    return row;
+  };
+
+  const initBoardMembersTable = (root, members) => {
+    console.log('BoardMembersTable init ok');
+    console.log('members count', members.length, members.map((member) => member.id));
+    const memberMap = new Map(members.map((member) => [member.id, member]));
+    const tbody = root.querySelector('tbody');
+    if (!tbody) return;
+
+    let activeDetailRow = null;
+    let activeButton = null;
+    let activeMemberId = null;
+
+    const insertAfterRow = (tableBody, targetRow, detailRow) => {
+      tableBody.insertBefore(detailRow, targetRow.nextSibling);
+    };
+
+    const removeDetailRow = () => {
+      if (activeDetailRow?.parentNode) {
+        activeDetailRow.parentNode.removeChild(activeDetailRow);
+      }
+      if (activeButton) {
+        activeButton.setAttribute('aria-expanded', 'false');
+        const activeRow = activeButton.closest('[data-member-row]');
+        if (activeRow && activeRow.classList) {
+          activeRow.classList.remove(...highlightClasses);
+        }
+      }
+      activeDetailRow = null;
+      activeButton = null;
+      activeMemberId = null;
+    };
+
+    const handleToggle = (button, row) => {
+      const memberId = button.getAttribute('data-member-id');
+      if (!memberId) return;
+      const member = memberMap.get(memberId);
+      if (!member) return;
+
+      if (activeMemberId === memberId) {
+        removeDetailRow();
+        return;
+      }
+
+      removeDetailRow();
+
+      const detailRow = createDetailRow(member);
+      row.classList.add(...highlightClasses);
+      button.setAttribute('aria-expanded', 'true');
+      insertAfterRow(tbody, row, detailRow);
+      console.log('detail row inserted', detailRow);
+
+      activeDetailRow = detailRow;
+      activeButton = button;
+      activeMemberId = memberId;
+    };
+
+    tbody.addEventListener('click', (event) => {
+      const targetElement = event.target instanceof Element ? event.target : null;
+      if (!targetElement) return;
+
+      let button = targetElement.closest('button[data-action="toggle"]');
+      const row = button?.closest('[data-member-row]') ?? targetElement.closest('[data-member-row]');
+      if (!(row instanceof HTMLElement)) return;
+
+      if (!button) {
+        button = row.querySelector('button[data-action="toggle"]');
+      }
+      if (!(button instanceof HTMLButtonElement)) return;
+
+      const memberId = button.getAttribute('data-member-id');
+      if (!memberId) return;
+
+      event.preventDefault();
+      console.log('toggle member', memberId);
+      handleToggle(button, row);
+    });
+  };
+
+  document.querySelectorAll('[data-board-members-table]').forEach((root) => {
+    if (!(root instanceof HTMLElement)) return;
+    const dataScript = root.querySelector('script[data-board-members]');
+    if (!dataScript) return;
+
+    let members = [];
+    try {
+      members = JSON.parse(dataScript.textContent || '[]');
+    } catch (error) {
+      console.error('BoardMembersTable: failed to parse data', error);
+      return;
+    }
+
+    initBoardMembersTable(root, members);
+  });
+</script>
