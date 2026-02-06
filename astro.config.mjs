@@ -14,5 +14,10 @@ export default defineConfig({
       theme: 'github-dark',
       wrap: true
     }
+  },
+  vite: {
+    server: {
+      allowedHosts: ['.ngrok-free.dev']
+    }
   }
 });
