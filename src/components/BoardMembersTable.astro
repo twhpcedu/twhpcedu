@@ -58,6 +58,8 @@ const membersWithDetails = members.filter((member) => hasDetails(member));
 
 <script is:inline type="module">
   const highlightClasses = ['bg-brand-light', 'ring-1', 'ring-brand-border'];
+  const defaultMemberId = 'yang-kuang-lei';
+  const hasDetails = (member) => Array.isArray(member.bio) && member.bio.length > 0;
 
   const createDetailRow = (member) => {
     const row = document.createElement('tr');
@@ -134,18 +136,14 @@ const membersWithDetails = members.filter((member) => hasDetails(member));
       activeMemberId = null;
     };
 
-    const handleToggle = (button, row) => {
-      const memberId = button.getAttribute('data-member-id');
+    const activateMember = (memberId) => {
       if (!memberId) return;
       const member = memberMap.get(memberId);
       if (!member) return;
-
-      if (activeMemberId === memberId) {
-        removeDetailRow();
-        return;
-      }
-
-      removeDetailRow();
+      const row = tbody.querySelector(`[data-member-row="${memberId}"]`);
+      if (!(row instanceof HTMLElement)) return;
+      const button = row.querySelector('button[data-action="toggle"]');
+      if (!(button instanceof HTMLButtonElement)) return;
 
       const detailRow = createDetailRow(member);
       row.classList.add(...highlightClasses);
@@ -156,6 +154,18 @@ const membersWithDetails = members.filter((member) => hasDetails(member));
       activeDetailRow = detailRow;
       activeButton = button;
       activeMemberId = memberId;
+    };
+
+    const handleToggle = (button) => {
+      const memberId = button.getAttribute('data-member-id');
+      if (!memberId) return;
+
+      if (activeMemberId === memberId) {
+        return;
+      }
+
+      removeDetailRow();
+      activateMember(memberId);
     };
 
     tbody.addEventListener('click', (event) => {
@@ -176,8 +186,15 @@ const membersWithDetails = members.filter((member) => hasDetails(member));
 
       event.preventDefault();
       console.log('toggle member', memberId);
-      handleToggle(button, row);
+      handleToggle(button);
     });
+
+    const resolvedDefaultId = memberMap.has(defaultMemberId)
+      ? defaultMemberId
+      : members.find((member) => hasDetails(member))?.id;
+    if (resolvedDefaultId) {
+      activateMember(resolvedDefaultId);
+    }
   };
 
   document.querySelectorAll('[data-board-members-table]').forEach((root) => {
