@@ -87,6 +87,37 @@ import PageHero from '../components/PageHero.astro';
       </div>
     </section>
 
+    <!-- PlayLab Course Highlight -->
+    <section class="playlab-course-highlight">
+      <div class="max-w-[1200px] mx-auto px-5 py-12 md:px-6 md:py-20">
+        <div class="playlab-fade-in text-center max-w-[860px] mx-auto">
+          <p class="text-sm font-semibold uppercase tracking-wider text-primary-600 mb-4">Play Lab 線上課程</p>
+          <h2 class="text-3xl md:text-4xl lg:text-4.5xl font-bold text-brand-primary mb-4 leading-snug md:leading-relaxed">
+            「人工智慧運算架構與系統」<br />
+            課程上線
+          </h2>
+          <p class="text-lg md:text-xl text-brand-secondary mb-8">
+            學習高效能運算晶片架構<br />
+            建立進入 ASIC 產業先備知識
+          </p>
+          <div class="max-w-[820px] mx-auto text-base md:text-lg text-brand-secondary leading-relaxed space-y-6 mb-10">
+            <p>
+              隨著晶片複雜度攀升，高效能運算 (HPC) 已成為半導體的核心戰場。臺灣雖擁有堅實的製造基礎，但在前段設計與軟硬體系統整合上仍面臨巨大挑戰。HPC 晶片開發需具備垂直整合視野，為臺灣傳統產學界少見的培育重點。
+            </p>
+            <p>
+              本協會邀請 Play Lab 開設系列課程，打破學界與產業界的藩籬，引進最前瞻的設計方法與概念。我們不僅協助學習者精確掌握核心技能，更打造一個共學研究平台，為學員建立實作即戰力。
+            </p>
+          </div>
+          <a
+            href="https://course.playlab.tw/acal"
+            class="inline-flex items-center justify-center bg-[linear-gradient(90deg,#6366f1,#4f46e5)] text-white px-7 py-3.5 rounded-full font-semibold shadow-sm transition-transform duration-200 hover:scale-105 hover:shadow-md"
+          >
+            查看課程介紹
+          </a>
+        </div>
+      </div>
+    </section>
+
     <!-- ACALSim Course (hidden) -->
     <section class="py-16 bg-cream-50 hidden">
       <div class="container mx-auto px-4">
@@ -275,3 +306,24 @@ import PageHero from '../components/PageHero.astro';
 
   <Footer />
 </Layout>
+
+<style>
+  .playlab-course-highlight {
+    background: linear-gradient(135deg, #f7f8fc 0%, #eef1f8 100%);
+  }
+
+  .playlab-fade-in {
+    animation: playlabFadeIn 0.6s ease-out both;
+  }
+
+  @keyframes playlabFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
