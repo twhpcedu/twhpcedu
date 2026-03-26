@@ -9,6 +9,11 @@ export default defineConfig({
     tailwind(),
     sitemap()
   ],
+  vite: {
+    server: {
+      allowedHosts: ['.ngrok-free.dev']
+    }
+  },
   markdown: {
     shikiConfig: {
       theme: 'github-dark',
