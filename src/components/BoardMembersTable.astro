@@ -94,7 +94,7 @@ const hasDetails = (member: BoardMember) => Array.isArray(member.bio) && member.
     row.setAttribute('data-for', member.id);
 
     const cell = document.createElement('td');
-    cell.colSpan = 4;
+    cell.colSpan = 5;
     cell.className = 'px-6 py-6 bg-brand-surface';
     cell.innerHTML = `
       <div class="bg-brand-surface rounded-2xl shadow-lg border border-brand-border p-6">
