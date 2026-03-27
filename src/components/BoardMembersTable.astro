@@ -7,7 +7,6 @@ export type Props = {
 
 const { members } = Astro.props;
 const hasDetails = (member: BoardMember) => Array.isArray(member.bio) && member.bio.length > 0;
-const membersWithDetails = members.filter((member) => hasDetails(member));
 ---
 <div data-board-members-table class="space-y-8">
   <div class="bg-brand-surface rounded-xl shadow-lg overflow-hidden">
@@ -19,24 +18,32 @@ const membersWithDetails = members.filter((member) => hasDetails(member));
             <th class="px-6 py-4 text-left font-semibold">姓名</th>
             <th class="px-6 py-4 text-left font-semibold">現職</th>
             <th class="px-6 py-4 text-left font-semibold">專長領域</th>
+            <th class="w-12 px-4 py-4 text-right font-semibold" aria-hidden="true"></th>
           </tr>
         </thead>
         <tbody class="divide-y divide-brand-border">
           {members.map((member) => {
             const canExpand = hasDetails(member);
             return (
-              <tr data-member-row={member.id} data-member-id={member.id} class="hover:bg-brand-light transition-colors">
+              <tr
+                data-member-row={member.id}
+                data-member-id={member.id}
+                class:list={[
+                  'transition-colors',
+                  canExpand && 'board-member-row--expandable cursor-pointer hover:bg-brand-light'
+                ]}
+              >
                 <td class="px-6 py-4 font-semibold text-brand-primary">{member.role}</td>
                 <td class="px-6 py-4">
                   {canExpand ? (
                     <button
                       type="button"
-                      class="text-brand-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent rounded"
+                      class="board-member-toggle inline-flex items-center text-brand-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent rounded"
                       data-action="toggle"
                       data-member-id={member.id}
                       aria-expanded="false"
                     >
-                      {member.name}
+                      <span>{member.name}</span>
                     </button>
                   ) : (
                     <span class="text-brand-secondary">{member.name}</span>
@@ -44,6 +51,11 @@ const membersWithDetails = members.filter((member) => hasDetails(member));
                 </td>
                 <td class="px-6 py-4 text-brand-secondary">{member.currentTitle}</td>
                 <td class="px-6 py-4 text-brand-secondary">{member.expertise.join('、')}</td>
+                <td class="board-member-cell--indicator px-4 py-4 text-right text-brand-accent">
+                  {canExpand ? (
+                    <span class="board-member-row__indicator inline-block text-lg leading-none" aria-hidden="true">&gt;</span>
+                  ) : null}
+                </td>
               </tr>
             );
           })}
@@ -56,10 +68,25 @@ const membersWithDetails = members.filter((member) => hasDetails(member));
   <div aria-live="polite"></div>
 </div>
 
+<style>
+  .board-member-row__indicator {
+    transition: transform 180ms ease, color 180ms ease;
+  }
+
+  .board-member-row--expandable:hover .board-member-row__indicator,
+  .board-member-row--expandable:focus-within .board-member-row__indicator,
+  .board-member-toggle[aria-expanded='true'] ~ .board-member-cell--indicator .board-member-row__indicator,
+  .board-member-row--expandable.is-active .board-member-row__indicator {
+    color: rgb(var(--color-brand-accent) / 1);
+  }
+
+  .board-member-row--expandable.is-active .board-member-row__indicator {
+    transform: rotate(90deg);
+  }
+</style>
+
 <script is:inline type="module">
   const highlightClasses = ['bg-brand-light', 'ring-1', 'ring-brand-border'];
-  const defaultMemberId = 'yang-kuang-lei';
-  const hasDetails = (member) => Array.isArray(member.bio) && member.bio.length > 0;
 
   const createDetailRow = (member) => {
     const row = document.createElement('tr');
@@ -106,8 +133,6 @@ const membersWithDetails = members.filter((member) => hasDetails(member));
   };
 
   const initBoardMembersTable = (root, members) => {
-    console.log('BoardMembersTable init ok');
-    console.log('members count', members.length, members.map((member) => member.id));
     const memberMap = new Map(members.map((member) => [member.id, member]));
     const tbody = root.querySelector('tbody');
     if (!tbody) return;
@@ -129,6 +154,7 @@ const membersWithDetails = members.filter((member) => hasDetails(member));
         const activeRow = activeButton.closest('[data-member-row]');
         if (activeRow && activeRow.classList) {
           activeRow.classList.remove(...highlightClasses);
+          activeRow.classList.remove('is-active');
         }
       }
       activeDetailRow = null;
@@ -147,9 +173,9 @@ const membersWithDetails = members.filter((member) => hasDetails(member));
 
       const detailRow = createDetailRow(member);
       row.classList.add(...highlightClasses);
+      row.classList.add('is-active');
       button.setAttribute('aria-expanded', 'true');
       insertAfterRow(tbody, row, detailRow);
-      console.log('detail row inserted', detailRow);
 
       activeDetailRow = detailRow;
       activeButton = button;
@@ -161,6 +187,7 @@ const membersWithDetails = members.filter((member) => hasDetails(member));
       if (!memberId) return;
 
       if (activeMemberId === memberId) {
+        removeDetailRow();
         return;
       }
 
@@ -185,16 +212,8 @@ const membersWithDetails = members.filter((member) => hasDetails(member));
       if (!memberId) return;
 
       event.preventDefault();
-      console.log('toggle member', memberId);
       handleToggle(button);
     });
-
-    const resolvedDefaultId = memberMap.has(defaultMemberId)
-      ? defaultMemberId
-      : members.find((member) => hasDetails(member))?.id;
-    if (resolvedDefaultId) {
-      activateMember(resolvedDefaultId);
-    }
   };
 
   document.querySelectorAll('[data-board-members-table]').forEach((root) => {
