@@ -1,0 +1,240 @@
+<style>
+  .intro {
+    max-width: 880px;
+    margin-bottom: 24px;
+  }
+
+  .cards {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+
+  @media (min-width: 1100px) {
+    .cards {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .preview-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 45px rgba(41, 67, 78, 0.08);
+    min-height: 100%;
+  }
+
+  .preview-top {
+    padding: 22px 24px 16px;
+    border-bottom: 1px solid rgba(226, 232, 240, 0.9);
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #29434e;
+    background: #fff5e4;
+    padding: 8px 12px;
+    border-radius: 999px;
+  }
+
+  .preview-body {
+    padding: 20px 24px 24px;
+  }
+
+  .mini-doc {
+    background: linear-gradient(180deg, #fffef9 0%, #fff7ea 100%);
+    border: 1px solid rgba(205, 92, 8, 0.18);
+    border-radius: 18px;
+    padding: 18px;
+    margin: 18px 0;
+  }
+
+  .doc-line {
+    height: 9px;
+    border-radius: 999px;
+    background: rgba(41, 67, 78, 0.12);
+    margin-bottom: 10px;
+  }
+
+  .doc-line.short {
+    width: 42%;
+  }
+
+  .doc-line.mid {
+    width: 68%;
+  }
+
+  .doc-line.long {
+    width: 100%;
+  }
+
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 16px 0 18px;
+  }
+
+  .meta-pill {
+    font-size: 12px;
+    color: #29434e;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 6px 10px;
+    border-radius: 999px;
+  }
+
+  .mock-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 13px 16px;
+    border-radius: 14px;
+    background: #cd5c08;
+    color: #fff;
+    font-weight: 700;
+  }
+
+  .soft-panel {
+    background: linear-gradient(135deg, #fff5e4 0%, #f0f8f1 100%);
+    padding: 18px;
+    border-radius: 18px;
+    margin: 18px 0;
+    color: #29434e;
+  }
+
+  .split-shell {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 16px;
+    margin: 18px 0;
+  }
+
+  .sheet {
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+    background: #fff;
+    padding: 16px;
+    min-height: 180px;
+  }
+
+  .action-rail {
+    border: 1px solid rgba(106, 156, 137, 0.24);
+    border-radius: 18px;
+    background: #f8fbf8;
+    padding: 16px;
+  }
+
+  .action-rail .mock-cta {
+    margin-top: 18px;
+  }
+
+  .option-note {
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+</style>
+
+<h2>章程區塊視覺方向</h2>
+<p class="subtitle intro">
+  我先用「文件預覽卡」這個大方向做三種版本。它們都會放在「我們的願景與目標」和「理監事成員」之間，
+  差別在於正式感、資訊密度和 CTA 的存在感。
+</p>
+
+<div class="cards">
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="preview-card">
+        <div class="preview-top">
+          <span class="eyebrow">方向 A ・ 穩重正式</span>
+          <h3 style="margin:16px 0 8px;">協會章程</h3>
+          <p class="option-note">用單一卡片建立明確重點，視覺最貼近目前 about 頁的敘事節奏。</p>
+        </div>
+        <div class="preview-body">
+          <div class="mini-doc">
+            <div class="doc-line short"></div>
+            <div class="doc-line long"></div>
+            <div class="doc-line long"></div>
+            <div class="doc-line mid"></div>
+          </div>
+          <div class="meta-row">
+            <span class="meta-pill">公開文件</span>
+            <span class="meta-pill">Google Docs</span>
+            <span class="meta-pill">新分頁開啟</span>
+          </div>
+          <div class="mock-cta">閱讀完整章程</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A. 穩重正式</h3>
+      <p>白底卡片加奶油色文件預覽，最不突兀，適合讓章程成為補充但清楚可見的資訊區塊。</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="preview-card" style="background:linear-gradient(180deg,#ffffff 0%,#fffaf2 100%);">
+        <div class="preview-top" style="border-bottom:none;padding-bottom:8px;">
+          <span class="eyebrow" style="background:#f0f8f1;">方向 B ・ 敘事導向</span>
+          <h3 style="margin:16px 0 8px;">協會章程</h3>
+          <p class="option-note">加入短說明區與柔和底色，讓這段更像願景之後的延伸說明。</p>
+        </div>
+        <div class="preview-body">
+          <div class="soft-panel">
+            章程說明協會宗旨、會員制度與組織運作，適合作為認識協會的重要入口。
+          </div>
+          <div class="mini-doc" style="margin-top:0;">
+            <div class="doc-line short"></div>
+            <div class="doc-line long"></div>
+            <div class="doc-line mid"></div>
+            <div class="doc-line long"></div>
+          </div>
+          <div class="mock-cta">前往文件閱讀</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B. 敘事導向</h3>
+      <p>更溫和，也比較有「從理念走向制度」的過渡感，適合 about 頁這種內容型頁面。</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="preview-card">
+        <div class="preview-top">
+          <span class="eyebrow">方向 C ・ 互動感較強</span>
+          <h3 style="margin:16px 0 8px;">協會章程</h3>
+          <p class="option-note">做成左文件右操作的雙欄卡，CTA 和資訊層次最清楚。</p>
+        </div>
+        <div class="preview-body">
+          <div class="split-shell">
+            <div class="sheet">
+              <div class="doc-line short"></div>
+              <div class="doc-line long"></div>
+              <div class="doc-line long"></div>
+              <div class="doc-line mid"></div>
+              <div class="doc-line long"></div>
+            </div>
+            <div class="action-rail">
+              <div class="meta-pill" style="display:inline-flex;">章程文件</div>
+              <p style="margin:14px 0 0;color:#29434e;">快速查看協會運作與制度規範。</p>
+              <div class="mock-cta">立即查看</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C. 互動感較強</h3>
+      <p>視覺存在感最高，但比前兩個更像功能卡片，會稍微跳出目前頁面的閱讀節奏。</p>
+    </div>
+  </div>
+</div>
