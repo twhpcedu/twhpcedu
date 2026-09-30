@@ -1,21 +1,23 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
 
 export async function getStaticPaths() {
   const newsEntries = await getCollection('news');
   return newsEntries.map(entry => ({
-    params: { slug: entry.slug },
+    params: { slug: entry.id },
     props: { entry },
   }));
 }
 
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 
 // Format date function
 function formatDate(date: Date): string {
-  return date.toLocaleDateString('en-US', {
+  return date.toLocaleDateString('zh-TW', {
     year: 'numeric',
     month: 'long',
     day: 'numeric'
@@ -27,15 +29,16 @@ const allNews = await getCollection('news');
 const relatedNews = allNews
   .filter(article => 
     article.data.category === entry.data.category && 
-    article.slug !== entry.slug
+    article.id !== entry.id
   )
   .slice(0, 3);
 ---
 
 <Layout 
-  title={`${entry.data.title} - ACAL News`} 
+  title={`${entry.data.title} | 臺灣高效能運算教育協會`} 
   description={entry.data.description}
 >
+  <Header />
   <main class="min-h-screen bg-gray-50">
     <!-- Article Header -->
     <section class="bg-white py-16">
@@ -97,7 +100,7 @@ const relatedNews = allNews
     {relatedNews.length > 0 && (
       <section class="py-16 bg-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Related Articles</h2>
+          <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">相關文章</h2>
           <div class="grid md:grid-cols-3 gap-8">
             {relatedNews.map((article) => (
               <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
@@ -116,16 +119,16 @@ const relatedNews = allNews
                     <span class="text-gray-500 text-sm ml-auto">{formatDate(article.data.pubDate)}</span>
                   </div>
                   <h3 class="text-xl font-bold text-gray-900 mb-3">
-                    <a href={`/news/${article.slug}`} class="hover:text-primary-600 transition-colors">
+                    <a href={`/news/${article.id}`} class="hover:text-primary-600 transition-colors">
                       {article.data.title}
                     </a>
                   </h3>
                   <p class="text-gray-600 mb-4 line-clamp-3">{article.data.description}</p>
                   <a 
-                    href={`/news/${article.slug}`}
+                    href={`/news/${article.id}`}
                     class="text-primary-600 hover:text-primary-700 font-medium text-sm"
                   >
-                    Read More →
+                    閱讀更多 →
                   </a>
                 </div>
               </article>
@@ -150,6 +153,7 @@ const relatedNews = allNews
       </div>
     </section>
   </main>
+  <Footer />
 </Layout>
 
 <style>
