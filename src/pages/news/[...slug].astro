@@ -59,10 +59,10 @@ const relatedNews = allNews
             {entry.data.description}
           </p>
           
-          <div class="flex items-center justify-center gap-4 text-sm text-gray-500">
+          <div class="flex flex-col md:flex-row items-center justify-center gap-4 text-sm text-gray-500">
             <span>By {entry.data.author}</span>
             {entry.data.tags.length > 0 && (
-              <div class="flex gap-2">
+              <div class="flex flex-wrap justify-center gap-2">
                 {entry.data.tags.map(tag => (
                   <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded">
                     #{tag}
@@ -159,6 +159,7 @@ const relatedNews = allNews
 <style>
   .prose {
     color: #374151;
+    overflow-wrap: anywhere;
   }
   
   .prose h1,
@@ -232,6 +233,12 @@ const relatedNews = allNews
     border-radius: 0.5rem;
     overflow-x: auto;
     margin: 1.5rem 0;
+  }
+
+  .prose table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
   }
   
   .prose pre code {
