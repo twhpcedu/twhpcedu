@@ -12,7 +12,7 @@ const latestNews = allNews
 
 // Format date function
 function formatDate(date: Date): string {
-  return date.toLocaleDateString('en-US', {
+  return date.toLocaleDateString('zh-TW', {
     year: 'numeric',
     month: 'long',
     day: 'numeric'
@@ -83,16 +83,6 @@ function formatDate(date: Date): string {
             <p class="text-dark-700 mb-6 leading-relaxed">
               高效能運算模擬與建模的開源專案。由產學專家與學員共同推動，透過實作平台培養大型 IC 與 AI 晶片架構設計人才，並推動台灣在關鍵技術領域的研究與創新，讓世界看到台灣的 HPC 創新能量。
             </p>
-            <a 
-              href="/projects/blackbear" 
-              class="inline-flex items-center text-primary-600 hover:text-primary-700 font-medium hidden"
-              aria-hidden="true" tabindex="-1"
-            >
-              了解更多
-              <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-              </svg>
-            </a>
           </div>
 
           <!-- ACALSim Project -->
@@ -106,16 +96,6 @@ function formatDate(date: Date): string {
             <p class="text-dark-700 mb-6 leading-relaxed">
               一個專為學術與產業研究打造的 IC 設計模擬平台。透過跨框架、多執行緒的共模擬環境，降低學習與實作門檻，促進開源專案協作與系統整合設計，支持下一代高效能運算系統的研發，打造開源共享的 HPC 設計生態圈。
             </p>
-            <a 
-              href="/projects/acalsim" 
-              class="inline-flex items-center text-primary-600 hover:text-primary-700 font-medium hidden"
-              aria-hidden="true" tabindex="-1"
-            >
-              了解更多
-              <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-              </svg>
-            </a>
           </div>
         </div>
       </div>
@@ -149,13 +129,13 @@ function formatDate(date: Date): string {
                   <span class="text-gray-500 text-sm ml-auto">{formatDate(article.data.pubDate)}</span>
                 </div>
                 <h3 class="text-xl font-bold text-dark-800 mb-3">
-                  <a href={`/news/${article.slug}`} class="hover:text-primary-600 transition-colors">
+                  <a href={`/news/${article.id}`} class="hover:text-primary-600 transition-colors">
                     {article.data.title}
                   </a>
                 </h3>
                 <p class="text-dark-700 mb-4 line-clamp-3">{article.data.description}</p>
                 <a 
-                  href={`/news/${article.slug}`}
+                  href={`/news/${article.id}`}
                   class="text-primary-600 hover:text-primary-700 font-medium text-sm"
                 >
                   閱讀更多 →
@@ -229,12 +209,6 @@ function formatDate(date: Date): string {
             class="hidden border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-secondary-600 transition-colors"
           >
             認識理監事團隊
-          </a>
-          <a 
-            href="/donate" 
-            class="hidden border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-secondary-600 transition-colors"
-          >
-            支持我們的使命
           </a>
         </div>
       </div>

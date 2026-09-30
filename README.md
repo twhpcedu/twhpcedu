@@ -10,50 +10,19 @@
 首頁 (Home) - /
 │
 ├── 關於我們 (About Us) - /about
-│   │
-│   ├── 使命 (Mission) - /about#mission
-│   │
-│   ├── 理監事成員 (Board) - /about#board
-│   │
-│   ├── 歷史 (History) - /about#history
-│   │
-│   ├── 年度報告 (Annual Report) - /about#annual-report
-│   │
-│   └── 合作夥伴 (Partners) - /about#partners
-│
 ├── 專案與研究 (Projects & Research) - /projects
-│   │
-│   ├── BlackBear 開源計畫 (BlackBear Project) - /projects/blackbear
-│   │
-│   └── ACALSim 模擬平台 (ACALSim Platform) - /projects/acalsim
-│
 ├── 教育培訓 (Education & Training) - /education
-│   │
-│   ├── 課程特色 (Course Features) - /education/features
-│   │
-│   └── ACALSim 課程 (ACALSim Courses) - /education/acalsim-course
-│
 ├── 最新消息 (News) - /news
-│   │
-│   ├── 新聞文章 (News Articles) - /news/[slug]
-│   │
-│   ├── ACALSim 課程發布 (ACALSim Course Launch) - /news/acalsim-course-launch
-│   │
-│   ├── 2025年度會議 (Annual Conference 2025) - /news/annual-conference-2025
-│   │
-│   └── 產業合作 (Industry Partnership) - /news/industry-partnership
-│
+│   └── 新聞文章 (News Articles) - /news/[slug]
 ├── 聯絡我們 (Contact Us) - /contact
-│
-├── 加入會員 (Join Us) - /join-us
-│
-└── 贊助我們 (Donate) - /donate
+└── 加入會員 (Join Us) - /join-us
 ```
 
 ## 技術架構
 
-- **框架**: Astro 4.x
-- **樣式**: Tailwind CSS + 語義化品牌色彩系統
+- **執行環境**: Node.js 22+
+- **框架**: Astro 7.x
+- **樣式**: Tailwind CSS 4 + 語義化品牌色彩系統
 - **內容管理**: Astro Content Collections
 - **組件系統**: 響應式可重用組件
 - **部署**: 靜態網站生成 (SSG)
@@ -79,14 +48,17 @@
 ## 開發指令
 
 ```bash
-# 安裝依賴
-npm install
+# 安裝鎖定版本的依賴
+npm ci
 
 # 開發模式
 npm run dev
 
 # 建置網站
 npm run build
+
+# 執行測試
+npm test
 
 # 預覽建置結果
 npm run preview
@@ -207,10 +179,9 @@ npm run preview
 
 ## 授權
 
-此專案採用 MIT 授權 - 詳見 [LICENSE](LICENSE) 檔案
+本儲存庫目前尚未提供正式的 `LICENSE` 檔案。對外重用、散布或授權前，請先由臺灣高效能運算教育協會確認授權條款。
 
 ## 聯絡資訊
 
 - **官方網站**: [https://twhpcedu.org](https://twhpcedu.org)
 - **電子郵件**: contact@twhpcedu.org
-- **地址**: 台灣台北市

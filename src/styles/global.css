@@ -1,3 +1,6 @@
+@config "../../tailwind.config.mjs";
+@import "tailwindcss";
+
 /* Global Styles for TWHPCEdu Website */
 
 /* Custom line clamp for news cards */
@@ -88,5 +91,5 @@
 }
 
 .btn-primary-full {
-  @apply btn-primary w-full md:w-auto text-center;
+  @apply bg-brand-accent hover:bg-primary-700 text-white px-4 py-2 md:px-6 md:py-3 rounded-lg text-sm md:text-base font-semibold transition-colors w-full md:w-auto text-center;
 }

@@ -74,5 +74,5 @@ tags: ["高效能運算", "AI 晶片設計", "開源專案", "教育推廣"]
 
 **加入方式**
 
-有興趣加入的朋友歡迎填寫 [表單](https://forms.gle/ZURUuk3X3u7cYd9Z9) 線上申請，  
+有興趣加入的朋友歡迎前往 [加入會員頁面](/join-us/) 填寫目前使用中的線上申請表單，  
 或者可以填寫附件表格寄至 [contact@twhpcedu.org](mailto:contact@twhpcedu.org)

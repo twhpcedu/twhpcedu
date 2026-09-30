@@ -5,8 +5,7 @@ pubDate: 2025-09-01
 author: "臺灣高效能運算教育協會"
 category: "教育"
 featured: true
-image: "/images/News-COURSE.png
-"
+image: "/images/News-COURSE.png"
 tags: ["HPC", "AI", "chip-design", "open-source", "education"]
 ---
 
@@ -16,7 +15,7 @@ tags: ["HPC", "AI", "chip-design", "open-source", "education"]
 <br>
 臺灣高效能運算教育協會課程由產業界、學界與專家學者組成，期盼透過第三方組織平台，實現課程與專案實作結合，打破傳統課程框架，為臺灣人才提供持續成長的管道。本協會課程歡迎具備一定程度的在職人士、學生一同參與，不限地域、背景、年齡皆可參加。
 <br>
-目前本協會開設課程如下，本協會將陸續開設新課程並將課程資訊公布於官網上，如您希望收到最新的課程資訊，歡迎填寫 [Google 表單](https://docs.google.com) ，我們將依據您的需求寄發最新課程資訊。
+目前本協會開設課程如下，本協會將陸續開設新課程並將課程資訊公布於官網上，如您希望收到最新的課程資訊，歡迎填寫 [最新消息訂閱表單](https://forms.gle/xRBwdodjvPBn6DUF6)，我們將依據您的需求寄發最新課程資訊。
 
 ---
 

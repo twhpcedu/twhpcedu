@@ -1,17 +1,24 @@
 ---
+import '../styles/global.css';
+
 export interface Props {
   title: string;
+  description?: string;
 }
 
-const { title } = Astro.props;
+const {
+  title,
+  description = '臺灣高效能運算教育協會致力於培育高效能運算與 IC 設計人才，連結學界、產業與開源社群。',
+} = Astro.props;
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Astro description" />
+    <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
+    <meta name="theme-color" content="#CD5C08" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
@@ -29,14 +36,8 @@ const { title } = Astro.props;
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <!-- Font Awesome 6 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   </head>
   <body class="font-sans bg-white text-gray-900">
     <slot />
   </body>
 </html>
-
-<style is:global>
-  @import '../styles/global.css';
-</style>

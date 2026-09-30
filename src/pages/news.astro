@@ -13,11 +13,11 @@ const sortedNews = allNews.sort((a, b) => new Date(b.data.pubDate).getTime() - n
 const featuredArticle = sortedNews.find(article => article.data.featured) || sortedNews[0];
 
 // Get other articles (excluding featured)
-const otherNews = sortedNews.filter(article => article.slug !== featuredArticle.slug);
+const otherNews = sortedNews.filter(article => article.id !== featuredArticle.id);
 
 // Format date function
 function formatDate(date: Date): string {
-  return date.toLocaleDateString('en-US', {
+  return date.toLocaleDateString('zh-TW', {
     year: 'numeric',
     month: 'long',
     day: 'numeric'
@@ -28,7 +28,7 @@ function formatDate(date: Date): string {
 const categories = [...new Set(allNews.map(article => article.data.category))];
 ---
 
-<Layout title="最新消息和活動 - ACAL" description="Stay updated with the latest news, research breakthroughs, and announcements from the Association for Computing and Advanced Learning.">
+<Layout title="最新消息和活動 | 臺灣高效能運算教育協會" description="掌握臺灣高效能運算教育協會的最新消息、活動、研究成果與課程資訊。">
   <Header />
   <main class="min-h-screen bg-cream-50">
     <PageHero 
@@ -66,7 +66,7 @@ const categories = [...new Set(allNews.map(article => article.data.category))];
                   <span class="text-brand-muted ml-4">{formatDate(featuredArticle.data.pubDate)}</span>
                 </div>
                 <h3 class="text-2xl font-bold text-dark-800 mb-4">
-                  <a href={`/news/${featuredArticle.slug}`} class="hover:text-primary-600 transition-colors">
+                  <a href={`/news/${featuredArticle.id}`} class="hover:text-primary-600 transition-colors">
                     {featuredArticle.data.title}
                   </a>
                 </h3>
@@ -74,7 +74,7 @@ const categories = [...new Set(allNews.map(article => article.data.category))];
                 <div class="flex items-center justify-between">
                   <span class="text-sm text-brand-muted">By {featuredArticle.data.author}</span>
                   <a 
-                    href={`/news/${featuredArticle.slug}`}
+                    href={`/news/${featuredArticle.id}`}
                     class="inline-flex items-center text-primary-600 hover:text-primary-700 font-medium"
                   >
                     Read More
@@ -127,7 +127,7 @@ const categories = [...new Set(allNews.map(article => article.data.category))];
                   <span class="text-brand-muted text-sm ml-auto">{formatDate(article.data.pubDate)}</span>
                 </div>
                 <h3 class="text-xl font-bold text-dark-800 mb-3">
-                  <a href={`/news/${article.slug}`} class="hover:text-primary-600 transition-colors">
+                  <a href={`/news/${article.id}`} class="hover:text-primary-600 transition-colors">
                     {article.data.title}
                   </a>
                 </h3>
@@ -135,7 +135,7 @@ const categories = [...new Set(allNews.map(article => article.data.category))];
                 <div class="flex items-center justify-between">
                   <span class="text-sm text-brand-muted">By {article.data.author}</span>
                   <a 
-                    href={`/news/${article.slug}`}
+                    href={`/news/${article.id}`}
                     class="text-primary-600 hover:text-primary-700 font-medium text-sm"
                   >
                     Read More →
