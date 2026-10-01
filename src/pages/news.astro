@@ -54,7 +54,7 @@ const categories = [...new Set(allNews.map(article => article.data.category))];
                   <img 
                     src={featuredArticle.data.image} 
                     alt={featuredArticle.data.title}
-                    class="w-full h-64 md:h-full object-cover"
+                    class="w-full h-auto aspect-video object-contain md:h-full md:aspect-auto md:object-cover"
                   />
                 )}
               </div>
