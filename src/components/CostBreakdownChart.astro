@@ -1,0 +1,166 @@
+<script>
+  import Chart from 'chart.js/auto';
+
+  const percentageLabels = {
+    id: 'percentageLabels',
+    afterDatasetsDraw(chart) {
+      const dataset = chart.data.datasets[0];
+      const metadata = chart.getDatasetMeta(0);
+      const fontSize = Math.max(14, Math.min(19, chart.width / 24));
+
+      chart.ctx.save();
+      chart.ctx.fillStyle = '#ffffff';
+      chart.ctx.font = `600 ${fontSize}px Inter, system-ui, sans-serif`;
+      chart.ctx.textAlign = 'center';
+      chart.ctx.textBaseline = 'middle';
+
+      metadata.data.forEach((arc, index) => {
+        const position = arc.tooltipPosition();
+        chart.ctx.fillText(`${dataset.data[index]}%`, position.x, position.y);
+      });
+
+      chart.ctx.restore();
+    },
+  };
+
+  function renderCostCharts() {
+    document.querySelectorAll('[data-cost-breakdown-chart]').forEach((chartRoot) => {
+      const canvas = chartRoot.querySelector('canvas');
+      if (!(canvas instanceof HTMLCanvasElement) || Chart.getChart(canvas)) return;
+
+      new Chart(canvas, {
+        type: 'doughnut',
+        data: {
+          labels: [
+            '雲端運算服務器租用',
+            '雲端資料庫空間租用',
+            'Gen AI 運算資源訂閱',
+            '行政規費負擔',
+          ],
+          datasets: [{
+            data: [31, 26, 26, 17],
+            backgroundColor: ['#2B63E5', '#38AFE5', '#7C86EE', '#94A3B8'],
+            borderColor: '#ffffff',
+            borderWidth: 6,
+            borderRadius: 3,
+            spacing: 2,
+            hoverOffset: 4,
+          }],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: '58%',
+          animation: false,
+          plugins: {
+            legend: {
+              display: false,
+            },
+            tooltip: {
+              callbacks: {
+                title() {
+                  return [];
+                },
+                label(context) {
+                  return `${context.label}：${context.parsed}%`;
+                },
+              },
+            },
+          },
+        },
+        plugins: [percentageLabels],
+      });
+    });
+  }
+
+  renderCostCharts();
+  document.addEventListener('astro:page-load', renderCostCharts);
+</script>
+
+<style is:global>
+  .cost-breakdown-chart {
+    margin: 1.5rem 0 2rem;
+    padding: 1.5rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 1rem;
+    background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+    box-shadow: 0 10px 30px rgba(41, 67, 78, 0.08);
+  }
+
+  .cost-breakdown-chart__title {
+    margin-bottom: 1.5rem;
+    color: #111827;
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  .cost-breakdown-chart__title strong {
+    font-weight: 700;
+  }
+
+  .cost-breakdown-chart__layout {
+    display: grid;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .cost-breakdown-chart__canvas {
+    position: relative;
+    width: min(100%, 28rem);
+    aspect-ratio: 1;
+    margin: 0 auto;
+  }
+
+  .cost-breakdown-chart__canvas canvas {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  .prose .cost-breakdown-chart__legend {
+    display: grid;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .prose .cost-breakdown-chart__legend li {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.5rem;
+    align-items: center;
+    margin: 0;
+    padding: 0.75rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.75rem;
+    background: #ffffff;
+    line-height: 1.5;
+  }
+
+  .cost-breakdown-chart__swatch {
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 0.125rem;
+  }
+
+  .cost-breakdown-chart__label {
+    color: #374151;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (min-width: 768px) {
+    .cost-breakdown-chart {
+      padding: 2rem;
+    }
+
+    .cost-breakdown-chart__layout {
+      grid-template-columns: minmax(0, 1.08fr) minmax(16rem, 0.92fr);
+      gap: 2rem;
+    }
+  }
+</style>

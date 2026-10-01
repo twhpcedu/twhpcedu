@@ -19,7 +19,20 @@ tags: ["高效能運算", "AI 教育", "ACALSim", "成本揭露"]
 
 ## 課程平台成本結構
 
-![ACALSim 平台年度營運成本結構比例：雲端運算服務器租用 31%、雲端資料庫空間租用 26%、Gen AI 運算資源訂閱 26%、行政規費負擔 17%](/images/acalsim-platform-annual-cost-structure.png)
+<figure class="cost-breakdown-chart" data-cost-breakdown-chart>
+  <figcaption class="cost-breakdown-chart__title">ACALSim <strong>平台年度營運成本結構比例</strong></figcaption>
+  <div class="cost-breakdown-chart__layout">
+    <div class="cost-breakdown-chart__canvas">
+      <canvas role="img" aria-label="ACALSim 平台年度營運成本結構比例：雲端運算服務器租用 31%、雲端資料庫空間租用 26%、Gen AI 運算資源訂閱 26%、行政規費負擔 17%"></canvas>
+    </div>
+    <ul class="cost-breakdown-chart__legend" aria-label="成本結構圖例">
+      <li><span class="cost-breakdown-chart__swatch" style="background:#2B63E5"></span><span class="cost-breakdown-chart__label">雲端運算服務器租用：31%</span></li>
+      <li><span class="cost-breakdown-chart__swatch" style="background:#38AFE5"></span><span class="cost-breakdown-chart__label">雲端資料庫空間租用：26%</span></li>
+      <li><span class="cost-breakdown-chart__swatch" style="background:#7C86EE"></span><span class="cost-breakdown-chart__label">Gen AI 運算資源訂閱：26%</span></li>
+      <li><span class="cost-breakdown-chart__swatch" style="background:#94A3B8"></span><span class="cost-breakdown-chart__label">行政規費負擔：17%</span></li>
+    </ul>
+  </div>
+</figure>
 
 - **雲端運算服務器租用：** 包含學生執行模擬、編譯與測試所需的 CPU／GPU 算力，以及大量使用時所產生之 Network Egress。
 - **雲端資料庫空間租用：** 包含使用者資料庫、作業提交及批改紀錄、大型資料集（Datasets）及 Docker Image 儲存等。
