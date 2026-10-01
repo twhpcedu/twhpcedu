@@ -162,56 +162,76 @@ const relatedNews = allNews
     overflow-wrap: anywhere;
   }
   
-  .prose h1,
-  .prose h2,
-  .prose h3,
-  .prose h4 {
+  .prose :global(h1),
+  .prose :global(h2),
+  .prose :global(h3),
+  .prose :global(h4) {
     color: #111827;
     font-weight: 700;
   }
   
-  .prose h2 {
+  .prose :global(h2) {
     font-size: 1.875rem;
     margin-top: 2rem;
     margin-bottom: 1rem;
   }
   
-  .prose h3 {
+  .prose :global(h3) {
     font-size: 1.5rem;
     margin-top: 1.5rem;
     margin-bottom: 0.75rem;
   }
   
-  .prose p {
+  .prose :global(p) {
     margin-bottom: 1.25rem;
     line-height: 1.75;
   }
   
-  .prose ul,
-  .prose ol {
+  .prose :global(ul),
+  .prose :global(ol) {
+    margin-top: 0.75rem;
     margin-bottom: 1.25rem;
-    padding-left: 1.5rem;
+    padding-left: 1.75rem;
+  }
+
+  .prose :global(ul) {
+    list-style-type: disc;
+  }
+
+  .prose :global(ol) {
+    list-style-type: decimal;
   }
   
-  .prose li {
-    margin-bottom: 0.5rem;
+  .prose :global(li) {
+    margin-bottom: 1rem;
+    padding-left: 0.375rem;
+    line-height: 1.75;
+  }
+
+  .prose :global(li:last-child) {
+    margin-bottom: 0;
+  }
+
+  .prose :global(li::marker) {
+    color: #CD5C08;
+    font-size: 1.15em;
   }
   
-  .prose strong {
+  .prose :global(strong) {
     font-weight: 600;
     color: #111827;
   }
   
-  .prose a {
+  .prose :global(a) {
     color: #ea580c;
     text-decoration: underline;
   }
   
-  .prose a:hover {
+  .prose :global(a:hover) {
     color: #c2410c;
   }
   
-  .prose blockquote {
+  .prose :global(blockquote) {
     border-left: 4px solid #ea580c;
     padding-left: 1rem;
     margin: 1.5rem 0;
@@ -219,14 +239,14 @@ const relatedNews = allNews
     color: #6b7280;
   }
   
-  .prose code {
+  .prose :global(code) {
     background-color: #f3f4f6;
     padding: 0.125rem 0.25rem;
     border-radius: 0.25rem;
     font-size: 0.875rem;
   }
   
-  .prose pre {
+  .prose :global(pre) {
     background-color: #1f2937;
     color: #f9fafb;
     padding: 1rem;
@@ -235,13 +255,13 @@ const relatedNews = allNews
     margin: 1.5rem 0;
   }
 
-  .prose table {
+  .prose :global(table) {
     display: block;
     max-width: 100%;
     overflow-x: auto;
   }
   
-  .prose pre code {
+  .prose :global(pre code) {
     background-color: transparent;
     padding: 0;
   }
